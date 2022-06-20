@@ -10,7 +10,11 @@ export type TopBannerSettingJson = {
 export type Banner = {
   pattern: Pattern,
   beginDate: string,
+  beginHour: number,
+  beginMin: number,
   endDate: string,
+  endHour: number,
+  endMin: number,
   imgSrcList: ImgSrcObj[],
 }
 
@@ -41,13 +45,21 @@ export type ImgSrcObj = {
   transitionDestination: string,
 }
 
-export const bannerSizeByPatternMapList = [
+export const bannerSizeByPatternMapList: BannerSizeByPatternMap[] = [
   { pt: Pattern.pt1, minWidth: 800, minHeight: 90, aspectRatioX: 80, aspectRatioY: 9 },
   { pt: Pattern.pt2, minWidth: 395, minHeight: 90, aspectRatioX: 79, aspectRatioY: 18 },
   { pt: Pattern.pt3, minWidth: 800, minHeight: 100, aspectRatioX: 8, aspectRatioY: 1 },
   { pt: Pattern.pt4, minWidth: 198, minHeight: 90, aspectRatioX: 11, aspectRatioY: 5 },
   { pt: Pattern.pt5, minWidth: 600, minHeight: 90, aspectRatioX: 20, aspectRatioY: 3 },
 ];
+
+export type BannerSizeByPatternMap = {
+  pt: Pattern,
+  minWidth: number,
+  minHeight: number,
+  aspectRatioX: number,
+  aspectRatioY: number,
+}
 
 export type AspectRatio = {
   x: number,

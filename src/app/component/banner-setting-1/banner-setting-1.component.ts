@@ -1,6 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {AspectRatio, Banner, bannerSizeByPatternMapList, ImgSrcObj, Pattern} from "../../interface/types";
+import {
+  AspectRatio,
+  Banner,
+  BannerSizeByPatternMap,
+  bannerSizeByPatternMapList,
+  ImgSrcObj,
+  Pattern
+} from "../../interface/types";
 import {AspectRatioUtil, calcGcd} from '../../util/calcAspectRatio';
+import { HourList, getMinList } from "../../constants/constants";
 import {DateFormat} from "../../util/date-format";
 
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -22,12 +30,18 @@ export class BannerSetting1Component1 implements OnInit {
   public aspectRatio: string = '';
   public imgErrorMessageList: string[] = [];
   public isImgUploaded: boolean = false;
+  public hourList: number[] = HourList;
+  public minValueList: number[] = getMinList();
 
   constructor(private formBuilder: FormBuilder) {
     this.fg1 = this.formBuilder.group({
       useThisPattern: [true, Validators.compose([Validators.required])],
       beginDate: [''],
       endDate: [''],
+      beginHour: [null],
+      beginMin: [null],
+      endHour: [null],
+      endMin: [null],
       imgSrcList: [''],
       imgTransitionDestinationList: [''],
       dropImage1: ['']
@@ -77,10 +91,17 @@ export class BannerSetting1Component1 implements OnInit {
   }
 
   private checkUploadImgContent(): void {
-    this.calcAspectRatio();
+    const targetBannerPattern: BannerSizeByPatternMap | undefined
+      = bannerSizeByPatternMapList.find(bannerSizeByPattern => bannerSizeByPattern.pt === Pattern.pt1);
+    if (!targetBannerPattern) {
+      this.imgErrorMessageList.push('検証に失敗しました。');
+      return;
+    }
+    this.calcAspectRatio(targetBannerPattern);
+    this.checkImgSize(targetBannerPattern);
   }
 
-  private calcAspectRatio(): void {
+  private calcAspectRatio(targetBannerPattern: BannerSizeByPatternMap): void {
     const g = calcGcd.gcd(this.uploadImgWidth, this.uploadImgHeight);
     const x = this.uploadImgWidth / g;
     const y = this.uploadImgHeight / g;
@@ -91,15 +112,27 @@ export class BannerSetting1Component1 implements OnInit {
     };
     AspectRatioUtil.checkAspectRatio(aspectRatio, Pattern.pt1);
     if (!aspectRatio.passX || !aspectRatio.passY) {
-      const targetBannerPattern = bannerSizeByPatternMapList.find(bannerSizeByPattern => bannerSizeByPattern.pt === Pattern.pt1);
       this.imgErrorMessageList.push(`アスペクト比が不適切です。
       ${targetBannerPattern?.aspectRatioX}：${targetBannerPattern?.aspectRatioY}で指定してください。`)
     }
   }
 
+  private checkImgSize(targetBannerPattern: BannerSizeByPatternMap): void {
+    if (this.uploadImgWidth < targetBannerPattern.minWidth) {
+      this.imgErrorMessageList.push(`パターン1で使用する画像の幅は、最低${targetBannerPattern.minWidth}pxの画像を推奨します。`)
+    }
+    if (this.uploadImgHeight < targetBannerPattern.minHeight) {
+      this.imgErrorMessageList.push(`パターン1で使用する画像の高さは、最低${targetBannerPattern.minHeight}pxの画像を推奨します。`)
+    }
+  }
+
   public saveThisBannerSetting() {
     const beginDate = DateFormat.dateFormat(this.fg1.get('beginDate')?.value);
+    const beginHour = this.fg1.get('beginHour')?.value;
+    const beginMin = this.fg1.get('beginMin')?.value;
     const endDate = DateFormat.dateFormat(this.fg1.get('endDate')?.value);
+    const endHour = this.fg1.get('endHour')?.value;
+    const endMin = this.fg1.get('endMin')?.value;
     const imgSrc = this.fg1.get('imgSrcList')?.value;
     const imgTransitionDestinationList = this.fg1.get('imgTransitionDestinationList')?.value;
     const imgSrcObj: ImgSrcObj = {
@@ -112,7 +145,11 @@ export class BannerSetting1Component1 implements OnInit {
     const banner: Banner = {
       pattern: Pattern.pt1,
       beginDate: beginDate,
+      beginHour: beginHour,
+      beginMin: beginMin,
       endDate: endDate,
+      endHour: endHour,
+      endMin: endMin,
       imgSrcList: imgSrcList
     }
     localStorage.setItem('bannerPt1', JSON.stringify(banner));

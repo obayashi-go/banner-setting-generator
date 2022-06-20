@@ -1,18 +1,18 @@
 <div class="banner-setting-wrapper">
   <mat-card>
-    <form [formGroup]="fg1">
+    <form [formGroup]="fg2">
       <div class="use-select-check">
         <mat-checkbox
           formControlName="useThisPattern"
           (change)="checkUsePattern()"
-          class="example-margin">Pattern1 を使用する
+          class="example-margin">Pattern2 を使用する
         </mat-checkbox>
       </div>
       <div class="banner-setting-area">
         <div class="date-time-setting-area">
           <div class="date-range">
             <mat-form-field appearance="fill">
-              <mat-label>Pattern1 公開期間</mat-label>
+              <mat-label>Pattern2 公開期間</mat-label>
               <mat-date-range-input [rangePicker]="picker">
                 <input matStartDate placeholder="開始日" formControlName="beginDate" [readonly]="isNotUse">
                 <input matEndDate placeholder="終了日" formControlName="endDate" [readonly]="isNotUse">
@@ -50,22 +50,22 @@
         <div class="use-banner-detail">
           <div class="use-banner-detail-img-area half-table-cell">
             <mat-form-field class="example-full-width" appearance="fill" [ngClass]="{'isDisabled': isNotUse}">
-              <mat-label>画像ファイル名</mat-label>
+              <mat-label>画像1ファイル名</mat-label>
               <input type="text"
-                     matInput formControlName="imgSrcList"
+                     matInput formControlName="imgSrc1"
                      [readonly]="isNotUse"
-                     placeholder="対象バナーの画像ファイル名">
+                     placeholder="対象バナー1の画像ファイル名">
               <mat-hint>imgディレクトリから新規ディレクトリを切って管理を行う場合は、`[ディレクトリ名]/画像ファイル名(拡張子つき）としてください</mat-hint>
             </mat-form-field>
           </div>
           <div class="half-table-cell">
             <mat-form-field appearance="fill" [ngClass]="{'isDisabled': isNotUse}">
-              <mat-label>遷移先URL</mat-label>
+              <mat-label>遷移先1URL</mat-label>
               <input type="text"
                      [readonly]="isNotUse"
                      matInput
-                     formControlName="imgTransitionDestinationList"
-                     placeholder="対象バナーの遷移先URL">
+                     formControlName="imgTransitionDestination1"
+                     placeholder="対象バナー1の遷移先URL">
               <mat-hint>対象バナーを押下した際の遷移先URLを記述してください。</mat-hint>
             </mat-form-field>
           </div>
@@ -80,37 +80,100 @@
                  [disabled]="isNotUse"
                  [readonly]="isNotUse"
                  [ngClass]="{'isDisabled': isNotUse}"
-                 (change)="onFileSelect($event)">
+                 (change)="onFileSelect($event, 1)">
         </div>
         <div class="img-verification-area">
           <p>選択画像の検証<span>画像をDropした時のみご利用出来ます</span></p>
           <dl>
             <dt>画像サイズ</dt>
-            <dd *ngIf="!isImgUploaded; else initial"></dd>
+            <dd *ngIf="!isImgUploaded1; else initial"></dd>
             <ng-template #initial>
-              <dd>Width：{{uploadImgWidth}}px Height: {{uploadImgHeight}}px</dd>
+              <dd>Width：{{uploadImgWidth1}}px Height: {{uploadImgHeight1}}px</dd>
             </ng-template>
           </dl>
           <dl>
             <dt>アスペクト比</dt>
-            <dd>{{aspectRatio}}</dd>
+            <dd>{{aspectRatio1}}</dd>
           </dl>
           <dl>
             <dt>ヒント</dt>
-            <dd *ngIf="!imgErrorMessageList.length && isImgUploaded">適切な画像サイズです。</dd>
-            <dd *ngIf="imgErrorMessageList.length && isImgUploaded">
-              <span *ngFor="let errorMsg of imgErrorMessageList; let idx = index">
+            <dd *ngIf="!imgErrorMessageList1.length && isImgUploaded1">適切な画像サイズです。</dd>
+            <dd *ngIf="imgErrorMessageList1.length && isImgUploaded1">
+              <span *ngFor="let errorMsg of imgErrorMessageList1; let idx = index">
                 <ng-container *ngIf="idx > 0"><br /></ng-container>
                 {{idx + 1}}:{{errorMsg}}
               </span>
             </dd>
-            <dd *ngIf="!isImgUploaded"></dd>
+            <dd *ngIf="!isImgUploaded1"></dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="banner-setting-area">
+        <div class="use-banner-detail">
+          <div class="use-banner-detail-img-area half-table-cell">
+            <mat-form-field class="example-full-width" appearance="fill" [ngClass]="{'isDisabled': isNotUse}">
+              <mat-label>画像2ファイル名</mat-label>
+              <input type="text"
+                     matInput formControlName="imgSrc2"
+                     [readonly]="isNotUse"
+                     placeholder="対象バナー2の画像ファイル名">
+              <mat-hint>imgディレクトリから新規ディレクトリを切って管理を行う場合は、`[ディレクトリ名]/画像ファイル名(拡張子つき）としてください</mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="half-table-cell">
+            <mat-form-field appearance="fill" [ngClass]="{'isDisabled': isNotUse}">
+              <mat-label>遷移先2URL</mat-label>
+              <input type="text"
+                     [readonly]="isNotUse"
+                     matInput
+                     formControlName="imgTransitionDestination2"
+                     placeholder="対象バナー2の遷移先URL">
+              <mat-hint>対象バナーを押下した際の遷移先URLを記述してください。</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-half-area">
+        <div class="img-drop-area" [ngClass]="{'isDisabled': isNotUse}">
+          Drop or Click Here
+          <input class="img-drop-area-input"
+                 formControlName="dropImage2"
+                 [type]="isNotUse ? 'none' : 'file'"
+                 [disabled]="isNotUse"
+                 [readonly]="isNotUse"
+                 [ngClass]="{'isDisabled': isNotUse}"
+                 (change)="onFileSelect($event, 2)">
+        </div>
+        <div class="img-verification-area">
+          <p>選択画像の検証<span>画像をDropした時のみご利用出来ます</span></p>
+          <dl>
+            <dt>画像サイズ</dt>
+            <dd *ngIf="!isImgUploaded2; else initial"></dd>
+            <ng-template #initial>
+              <dd>Width：{{uploadImgWidth2}}px Height: {{uploadImgHeight2}}px</dd>
+            </ng-template>
+          </dl>
+          <dl>
+            <dt>アスペクト比</dt>
+            <dd>{{aspectRatio2}}</dd>
+          </dl>
+          <dl>
+            <dt>ヒント</dt>
+            <dd *ngIf="!imgErrorMessageList2.length && isImgUploaded2">適切な画像サイズです。</dd>
+            <dd *ngIf="imgErrorMessageList2.length && isImgUploaded2">
+              <span *ngFor="let errorMsg of imgErrorMessageList2; let idx = index">
+                <ng-container *ngIf="idx > 0"><br /></ng-container>
+                {{idx + 1}}:{{errorMsg}}
+              </span>
+            </dd>
+            <dd *ngIf="!isImgUploaded2"></dd>
           </dl>
         </div>
       </div>
 
       <div class="submit-area">
-        <button mat-raised-button color="primary" [disabled]="fg1.invalid" (click)="saveThisBannerSetting()">設定する</button>
+        <button mat-raised-button color="primary" [disabled]="fg2.invalid" (click)="saveThisBannerSetting()">設定する</button>
       </div>
     </form>
   </mat-card>

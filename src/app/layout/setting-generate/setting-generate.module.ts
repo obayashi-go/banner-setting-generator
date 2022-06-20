@@ -13,9 +13,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatSelectModule } from "@angular/material/select";
+import { MatOptionModule } from "@angular/material/core";
 // optional components
 import { SectionTitleComponent } from '../../component/section-title/section-title.component'
-import { BannerSetting1Component1 } from "../../component/banner-setting-1/banner-setting-1.component";
+import { BannerSetting1Component1 } from '../../component/banner-setting-1/banner-setting-1.component';
+import { BannerSetting2Component2 } from '../../component/banner-setting-2/banner-setting-2.component';
 
 @NgModule({
   imports: [
@@ -30,11 +33,14 @@ import { BannerSetting1Component1 } from "../../component/banner-setting-1/banne
     MatDatepickerModule,
     MatFormFieldModule,
     MatNativeDateModule,
+    MatSelectModule,
+    MatOptionModule,
   ],
   declarations: [
     SettingGenerateComponent,
     SectionTitleComponent,
     BannerSetting1Component1,
+    BannerSetting2Component2,
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'}
