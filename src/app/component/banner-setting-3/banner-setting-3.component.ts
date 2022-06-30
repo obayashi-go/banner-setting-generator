@@ -14,14 +14,13 @@ import {DateFormat} from "../../util/date-format";
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
-  selector: 'app-banner-setting-1',
-  templateUrl: './banner-setting-1.component.html',
-  styleUrls: ['./banner-setting-1.component.scss']
+  selector: 'app-banner-setting-3',
+  templateUrl: './banner-setting-3.component.html',
+  styleUrls: ['./banner-setting-3.component.scss']
 })
-export class BannerSetting1Component1 implements OnInit {
+export class BannerSetting3Component3 implements OnInit {
 
-  public Pattern = typeof Pattern;
-  public fg1: FormGroup;
+  public fg3: FormGroup;
   public isNotUse: boolean = false;
   // @ts-ignore
   public file: File = null;
@@ -34,7 +33,7 @@ export class BannerSetting1Component1 implements OnInit {
   public minValueList: number[] = getMinList();
 
   constructor(private formBuilder: FormBuilder) {
-    this.fg1 = this.formBuilder.group({
+    this.fg3 = this.formBuilder.group({
       useThisPattern: [true, Validators.compose([Validators.required])],
       beginDate: [''],
       endDate: [''],
@@ -49,16 +48,16 @@ export class BannerSetting1Component1 implements OnInit {
   }
 
   ngOnInit(): void {
-    localStorage.removeItem('bannerPt1');
+    localStorage.removeItem('bannerPt3');
   }
 
   public checkUsePattern(): void {
-    this.isNotUse = !this.fg1.get('useThisPattern')?.value;
-    this.fg1.get('beginDate')?.setValue('');
-    this.fg1.get('endDate')?.setValue('');
-    this.fg1.get('imgSrcList')?.setValue('');
-    this.fg1.get('imgTransitionDestinationList')?.setValue('');
-    this.fg1.get('dropImage1')?.setValue('');
+    this.isNotUse = !this.fg3.get('useThisPattern')?.value;
+    this.fg3.get('beginDate')?.setValue('');
+    this.fg3.get('endDate')?.setValue('');
+    this.fg3.get('imgSrcList')?.setValue('');
+    this.fg3.get('imgTransitionDestinationList')?.setValue('');
+    this.fg3.get('dropImage1')?.setValue('');
     this.uploadImgWidth = 0;
     this.uploadImgHeight = 0;
     this.isImgUploaded = false;
@@ -78,7 +77,7 @@ export class BannerSetting1Component1 implements OnInit {
     //ファイルの情報をfileとimgSrcに保存
     this.file = event.target.files[0];
     // フォームへファイル名をセット
-    this.fg1.get('imgSrcList')?.setValue(this.file.name);
+    this.fg3.get('imgSrcList')?.setValue(this.file.name);
     // 画像サイズを取得
     const img = document.createElement('img');
     img.src = URL.createObjectURL(event.target.files[0]);
@@ -93,7 +92,7 @@ export class BannerSetting1Component1 implements OnInit {
   private checkUploadImgContent(): void {
     this.imgErrorMessageList.length = 0;
     const targetBannerPattern: BannerSizeByPatternMap | undefined
-      = bannerSizeByPatternMapList.find(bannerSizeByPattern => bannerSizeByPattern.pt === Pattern.pt1);
+      = bannerSizeByPatternMapList.find(bannerSizeByPattern => bannerSizeByPattern.pt === Pattern.pt3);
     if (!targetBannerPattern) {
       this.imgErrorMessageList.push('検証に失敗しました。');
       return;
@@ -111,7 +110,7 @@ export class BannerSetting1Component1 implements OnInit {
       x, y,
       passX: false, passY: false
     };
-    AspectRatioUtil.checkAspectRatio(aspectRatio, Pattern.pt1);
+    AspectRatioUtil.checkAspectRatio(aspectRatio, Pattern.pt3);
     if (!aspectRatio.passX || !aspectRatio.passY) {
       this.imgErrorMessageList.push(`アスペクト比が不適切です。
       ${targetBannerPattern?.aspectRatioX}：${targetBannerPattern?.aspectRatioY}で指定してください。`)
@@ -120,22 +119,22 @@ export class BannerSetting1Component1 implements OnInit {
 
   private checkImgSize(targetBannerPattern: BannerSizeByPatternMap): void {
     if (this.uploadImgWidth < targetBannerPattern.minWidth) {
-      this.imgErrorMessageList.push(`パターン1で使用する画像の幅は、最低${targetBannerPattern.minWidth}pxの画像を推奨します。`)
+      this.imgErrorMessageList.push(`パターン3で使用する画像の幅は、最低${targetBannerPattern.minWidth}pxの画像を推奨します。`)
     }
     if (this.uploadImgHeight < targetBannerPattern.minHeight) {
-      this.imgErrorMessageList.push(`パターン1で使用する画像の高さは、最低${targetBannerPattern.minHeight}pxの画像を推奨します。`)
+      this.imgErrorMessageList.push(`パターン3で使用する画像の高さは、最低${targetBannerPattern.minHeight}pxの画像を推奨します。`)
     }
   }
 
   public saveThisBannerSetting() {
-    const beginDate = DateFormat.dateFormat(this.fg1.get('beginDate')?.value);
-    const beginHour = this.fg1.get('beginHour')?.value;
-    const beginMin = this.fg1.get('beginMin')?.value;
-    const endDate = DateFormat.dateFormat(this.fg1.get('endDate')?.value);
-    const endHour = this.fg1.get('endHour')?.value;
-    const endMin = this.fg1.get('endMin')?.value;
-    const imgSrc = this.fg1.get('imgSrcList')?.value;
-    const imgTransitionDestinationList = this.fg1.get('imgTransitionDestinationList')?.value;
+    const beginDate = DateFormat.dateFormat(this.fg3.get('beginDate')?.value);
+    const beginHour = this.fg3.get('beginHour')?.value;
+    const beginMin = this.fg3.get('beginMin')?.value;
+    const endDate = DateFormat.dateFormat(this.fg3.get('endDate')?.value);
+    const endHour = this.fg3.get('endHour')?.value;
+    const endMin = this.fg3.get('endMin')?.value;
+    const imgSrc = this.fg3.get('imgSrcList')?.value;
+    const imgTransitionDestinationList = this.fg3.get('imgTransitionDestinationList')?.value;
     const imgSrcObj: ImgSrcObj = {
       src: imgSrc,
       transitionDestination: imgTransitionDestinationList
@@ -143,7 +142,7 @@ export class BannerSetting1Component1 implements OnInit {
     const imgSrcList: ImgSrcObj[] = [];
     imgSrcList.push(imgSrcObj);
     const banner: Banner = {
-      pattern: Pattern.pt1,
+      pattern: Pattern.pt3,
       beginDate: beginDate,
       beginHour: beginHour,
       beginMin: beginMin,
@@ -152,6 +151,6 @@ export class BannerSetting1Component1 implements OnInit {
       endMin: endMin,
       imgSrcList: imgSrcList
     }
-    localStorage.setItem('bannerPt1', JSON.stringify(banner));
+    localStorage.setItem('bannerPt3', JSON.stringify(banner));
   }
 }

@@ -19,6 +19,8 @@ import { MatOptionModule } from "@angular/material/core";
 import { SectionTitleComponent } from '../../component/section-title/section-title.component'
 import { BannerSetting1Component1 } from '../../component/banner-setting-1/banner-setting-1.component';
 import { BannerSetting2Component2 } from '../../component/banner-setting-2/banner-setting-2.component';
+import { BannerSetting3Component3 } from "../../component/banner-setting-3/banner-setting-3.component";
+import { BannerSetting4Component4 } from "../../component/banner-setting-4/banner-setting-4.component";
 
 @NgModule({
   imports: [
@@ -41,6 +43,8 @@ import { BannerSetting2Component2 } from '../../component/banner-setting-2/banne
     SectionTitleComponent,
     BannerSetting1Component1,
     BannerSetting2Component2,
+    BannerSetting3Component3,
+    BannerSetting4Component4,
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'}

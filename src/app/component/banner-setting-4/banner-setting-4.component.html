@@ -1,11 +1,11 @@
 <div class="banner-setting-wrapper">
   <mat-card>
-    <form [formGroup]="fg2">
+    <form [formGroup]="fg4">
       <div class="use-select-check">
         <mat-checkbox
           formControlName="useThisPattern"
           (change)="checkUsePattern()"
-          class="example-margin">Pattern2 を使用する
+          class="example-margin">Pattern4 を使用する
         </mat-checkbox>
       </div>
       <div class="banner-setting-area">
@@ -172,8 +172,134 @@
         </div>
       </div>
 
+      <div class="banner-setting-area">
+        <div class="use-banner-detail">
+          <div class="use-banner-detail-img-area half-table-cell">
+            <mat-form-field class="example-full-width" appearance="fill" [ngClass]="{'isDisabled': isNotUse}">
+              <mat-label>画像3ファイル名</mat-label>
+              <input type="text"
+                     matInput formControlName="imgSrc3"
+                     [readonly]="isNotUse"
+                     placeholder="対象バナー3の画像ファイル名">
+              <mat-hint>imgディレクトリから新規ディレクトリを切って管理を行う場合は、`[ディレクトリ名]/画像ファイル名(拡張子つき）`としてください</mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="half-table-cell">
+            <mat-form-field appearance="fill" [ngClass]="{'isDisabled': isNotUse}">
+              <mat-label>遷移先3URL</mat-label>
+              <input type="text"
+                     [readonly]="isNotUse"
+                     matInput
+                     formControlName="imgTransitionDestination3"
+                     placeholder="対象バナー2の遷移先URL">
+              <mat-hint>対象バナーを押下した際の遷移先URLを記述してください。</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-half-area">
+        <div class="img-drop-area" [ngClass]="{'isDisabled': isNotUse}">
+          Drop or Click Here
+          <input class="img-drop-area-input"
+                 formControlName="dropImage3"
+                 [type]="isNotUse ? 'none' : 'file'"
+                 [disabled]="isNotUse"
+                 [readonly]="isNotUse"
+                 [ngClass]="{'isDisabled': isNotUse}"
+                 (change)="onFileSelect($event, 3)">
+        </div>
+        <div class="img-verification-area">
+          <p>選択画像の検証<span>画像をDropした時のみご利用出来ます</span></p>
+          <dl>
+            <dt>画像サイズ</dt>
+            <dd *ngIf="!isImgUploaded3; else initial3"></dd>
+            <ng-template #initial3>
+              <dd>Width：{{uploadImgWidth3}}px Height: {{uploadImgHeight3}}px</dd>
+            </ng-template>
+          </dl>
+          <dl>
+            <dt>アスペクト比</dt>
+            <dd>{{aspectRatio3}}</dd>
+          </dl>
+          <dl>
+            <dt>ヒント</dt>
+            <dd *ngIf="!imgErrorMessageList3.length && isImgUploaded3">適切な画像サイズです。</dd>
+            <dd *ngIf="imgErrorMessageList3.length && isImgUploaded3">
+              <span *ngFor="let errorMsg of imgErrorMessageList3; let idx = index">
+                <ng-container *ngIf="idx > 0"><br /></ng-container>
+                {{idx + 1}}:{{errorMsg}}
+              </span>
+            </dd>
+            <dd *ngIf="!isImgUploaded3"></dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="banner-setting-area">
+        <div class="use-banner-detail">
+          <div class="use-banner-detail-img-area half-table-cell">
+            <mat-form-field class="example-full-width" appearance="fill" [ngClass]="{'isDisabled': isNotUse}">
+              <mat-label>画像4ファイル名</mat-label>
+              <input type="text"
+                     matInput formControlName="imgSrc4"
+                     [readonly]="isNotUse"
+                     placeholder="対象バナー3の画像ファイル名">
+              <mat-hint>imgディレクトリから新規ディレクトリを切って管理を行う場合は、`[ディレクトリ名]/画像ファイル名(拡張子つき）`としてください</mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="half-table-cell">
+            <mat-form-field appearance="fill" [ngClass]="{'isDisabled': isNotUse}">
+              <mat-label>遷移先4URL</mat-label>
+              <input type="text"
+                     [readonly]="isNotUse"
+                     matInput
+                     formControlName="imgTransitionDestination4"
+                     placeholder="対象バナー4の遷移先URL">
+              <mat-hint>対象バナーを押下した際の遷移先URLを記述してください。</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-half-area">
+        <div class="img-drop-area" [ngClass]="{'isDisabled': isNotUse}">
+          Drop or Click Here
+          <input class="img-drop-area-input"
+                 formControlName="dropImage4"
+                 [type]="isNotUse ? 'none' : 'file'"
+                 [disabled]="isNotUse"
+                 [readonly]="isNotUse"
+                 [ngClass]="{'isDisabled': isNotUse}"
+                 (change)="onFileSelect($event, 4)">
+        </div>
+        <div class="img-verification-area">
+          <p>選択画像の検証<span>画像をDropした時のみご利用出来ます</span></p>
+          <dl>
+            <dt>画像サイズ</dt>
+            <dd *ngIf="!isImgUploaded4; else initial4"></dd>
+            <ng-template #initial4>
+              <dd>Width：{{uploadImgWidth4}}px Height: {{uploadImgHeight4}}px</dd>
+            </ng-template>
+          </dl>
+          <dl>
+            <dt>アスペクト比</dt>
+            <dd>{{aspectRatio4}}</dd>
+          </dl>
+          <dl>
+            <dt>ヒント</dt>
+            <dd *ngIf="!imgErrorMessageList4.length && isImgUploaded4">適切な画像サイズです。</dd>
+            <dd *ngIf="imgErrorMessageList4.length && isImgUploaded4">
+              <span *ngFor="let errorMsg of imgErrorMessageList4; let idx = index">
+                <ng-container *ngIf="idx > 0"><br /></ng-container>
+                {{idx + 1}}:{{errorMsg}}
+              </span>
+            </dd>
+            <dd *ngIf="!isImgUploaded4"></dd>
+          </dl>
+        </div>
+      </div>
+
       <div class="submit-area">
-        <button mat-raised-button color="primary" [disabled]="fg2.invalid" (click)="saveThisBannerSetting()">設定する</button>
+        <button mat-raised-button color="primary" [disabled]="fg4.invalid" (click)="saveThisBannerSetting()">設定する</button>
       </div>
     </form>
   </mat-card>

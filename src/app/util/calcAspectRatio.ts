@@ -2,7 +2,6 @@ import { bannerSizeByPatternMapList, AspectRatio, Pattern } from '../interface/t
 
 export class calcGcd {
   public static gcd(x: number, y: number): number {
-    console.log(x, y)
     if(x % y){
       return this.gcd(y, x % y)
     } else {

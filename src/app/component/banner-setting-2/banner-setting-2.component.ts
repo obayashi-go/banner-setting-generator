@@ -124,11 +124,21 @@ export class BannerSetting2Component2 implements OnInit {
   }
 
   private checkUploadImgContent(imgNo: number): void {
+    this.imgErrorMessageList1.length = 0;
+    this.imgErrorMessageList2.length = 0;
     const targetBannerPattern: BannerSizeByPatternMap | undefined
       = bannerSizeByPatternMapList.find(bannerSizeByPattern => bannerSizeByPattern.pt === Pattern.pt1);
     if (!targetBannerPattern) {
-      this.imgErrorMessageList1.push('検証に失敗しました。');
-      return;
+      switch (imgNo) {
+        case 1:
+          this.imgErrorMessageList1.push('検証に失敗しました。');
+          return;
+        case 2:
+          this.imgErrorMessageList2.push('検証に失敗しました。');
+          return;
+        default:
+          return;
+      }
     }
     this.calcAspectRatio(targetBannerPattern, imgNo);
     this.checkImgSize(targetBannerPattern, imgNo);
