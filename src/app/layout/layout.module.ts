@@ -6,7 +6,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
-// import { TranslateModule } from '@ngx-translate/core';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { HeaderComponent } from '../component/header/header.component';
@@ -25,7 +24,6 @@ import { LayoutComponent } from './layout.component';
     MatMenuModule,
     MatListModule,
     MatProgressBarModule,
-    // TranslateModule
   ],
   declarations: [ LayoutComponent, HeaderComponent ]
 })

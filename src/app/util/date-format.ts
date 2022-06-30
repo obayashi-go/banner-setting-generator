@@ -1,5 +1,8 @@
 export class DateFormat {
   public static dateFormat(date: Date | string): string {
+    if (!date) {
+      return '2030-12-31';
+    }
     if (typeof date === 'string') {
       date = new Date(date);
     }

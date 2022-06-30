@@ -1,24 +1,24 @@
 <div class="setting-generate-wrapper">
-  <app-section-title [pattern]="pattern.pt1"></app-section-title>
-  <app-banner-setting-1></app-banner-setting-1>
-  <div class="pattern-margin"></div>
-  <app-section-title [pattern]="pattern.pt2"></app-section-title>
-  <app-banner-setting-2></app-banner-setting-2>
-  <div class="pattern-margin"></div>
-  <app-section-title [pattern]="pattern.pt3"></app-section-title>
-  <app-banner-setting-3></app-banner-setting-3>
-  <div class="pattern-margin"></div>
-  <app-section-title [pattern]="pattern.pt4"></app-section-title>
-  <app-banner-setting-4></app-banner-setting-4>
-<!--  <app-section-title [pattern]="pattern.pt2"></app-section-title>-->
-<!--  <app-banner-setting [pattern]="pattern.pt2"></app-banner-setting>-->
-<!--  <div class="pattern-margin"></div>-->
-<!--  <app-section-title [pattern]="pattern.pt3"></app-section-title>-->
-<!--  <app-banner-setting [pattern]="pattern.pt3"></app-banner-setting>-->
-<!--  <div class="pattern-margin"></div>-->
-<!--  <app-section-title [pattern]="pattern.pt4"></app-section-title>-->
-<!--  <app-banner-setting [pattern]="pattern.pt4"></app-banner-setting>-->
-<!--  <div class="pattern-margin"></div>-->
-<!--  <app-section-title [pattern]="pattern.pt5"></app-section-title>-->
-<!--  <app-banner-setting [pattern]="pattern.pt5"></app-banner-setting>-->
+  <mat-tab-group mat-align-tabs="start">
+    <mat-tab label="Pattern1">
+      <app-section-title [pattern]="pattern.pt1"></app-section-title>
+      <app-banner-setting-1></app-banner-setting-1>
+    </mat-tab>
+    <mat-tab label="Pattern2">
+      <app-section-title [pattern]="pattern.pt2"></app-section-title>
+      <app-banner-setting-2></app-banner-setting-2>
+    </mat-tab>
+    <mat-tab label="Pattern3">
+      <app-section-title [pattern]="pattern.pt3"></app-section-title>
+      <app-banner-setting-3></app-banner-setting-3>
+    </mat-tab>
+    <mat-tab label="Pattern4">
+      <app-section-title [pattern]="pattern.pt4"></app-section-title>
+      <app-banner-setting-4></app-banner-setting-4>
+    </mat-tab>
+    <mat-tab label="Pattern5">
+      <app-section-title [pattern]="pattern.pt5"></app-section-title>
+      <app-banner-setting-5></app-banner-setting-5>
+    </mat-tab>
+  </mat-tab-group>
 </div>

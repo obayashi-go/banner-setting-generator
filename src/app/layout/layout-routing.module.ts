@@ -16,6 +16,10 @@ const routes: Routes = [
         path: 'setting-generate',
         loadChildren: () => import('./setting-generate/setting-generate.module').then(m => m.SettingGenerateModule)
       },
+      {
+        path: 'create-json',
+        loadChildren: () => import('./create-banner-setting-json/create-banner-setting-json.module').then(m => m.CreateBannerSettingJsonModule)
+      },
     ]
   }
 ];

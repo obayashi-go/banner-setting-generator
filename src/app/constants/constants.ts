@@ -5,7 +5,7 @@ export const HourList: number[] = [
 
 export const getMinList = (): number[] => {
   const minList: number[] = [];
-  for(let min = 0; min < 61; min++) {
+  for(let min = 0; min < 60; min++) {
     minList.push(min);
   }
   return minList;

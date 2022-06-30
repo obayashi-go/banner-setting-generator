@@ -137,19 +137,19 @@ export class BannerSetting3Component3 implements OnInit {
     const imgTransitionDestinationList = this.fg3.get('imgTransitionDestinationList')?.value;
     const imgSrcObj: ImgSrcObj = {
       src: imgSrc,
-      transitionDestination: imgTransitionDestinationList
+      url: imgTransitionDestinationList
     };
     const imgSrcList: ImgSrcObj[] = [];
     imgSrcList.push(imgSrcObj);
     const banner: Banner = {
       pattern: Pattern.pt3,
       beginDate: beginDate,
-      beginHour: beginHour,
-      beginMin: beginMin,
+      beginTimeHour: beginHour || 0,
+      beginTimeMin: beginMin || 0,
       endDate: endDate,
-      endHour: endHour,
-      endMin: endMin,
-      imgSrcList: imgSrcList
+      endTimeHour: endHour || 23,
+      endTimeMin: endMin || 59,
+      bannerList: imgSrcList
     }
     localStorage.setItem('bannerPt3', JSON.stringify(banner));
   }

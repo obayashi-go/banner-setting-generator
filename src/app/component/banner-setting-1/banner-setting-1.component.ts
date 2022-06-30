@@ -20,7 +20,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class BannerSetting1Component1 implements OnInit {
 
-  public Pattern = typeof Pattern;
   public fg1: FormGroup;
   public isNotUse: boolean = false;
   // @ts-ignore
@@ -138,19 +137,19 @@ export class BannerSetting1Component1 implements OnInit {
     const imgTransitionDestinationList = this.fg1.get('imgTransitionDestinationList')?.value;
     const imgSrcObj: ImgSrcObj = {
       src: imgSrc,
-      transitionDestination: imgTransitionDestinationList
+      url: imgTransitionDestinationList
     };
     const imgSrcList: ImgSrcObj[] = [];
     imgSrcList.push(imgSrcObj);
     const banner: Banner = {
       pattern: Pattern.pt1,
       beginDate: beginDate,
-      beginHour: beginHour,
-      beginMin: beginMin,
+      beginTimeHour: beginHour || 0,
+      beginTimeMin: beginMin || 0,
       endDate: endDate,
-      endHour: endHour,
-      endMin: endMin,
-      imgSrcList: imgSrcList
+      endTimeHour: endHour || 23,
+      endTimeMin: endMin || 59,
+      bannerList: imgSrcList
     }
     localStorage.setItem('bannerPt1', JSON.stringify(banner));
   }

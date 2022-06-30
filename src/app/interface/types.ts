@@ -10,12 +10,12 @@ export type TopBannerSettingJson = {
 export type Banner = {
   pattern: Pattern,
   beginDate: string,
-  beginHour: number,
-  beginMin: number,
+  beginTimeHour: number,
+  beginTimeMin: number,
   endDate: string,
-  endHour: number,
-  endMin: number,
-  imgSrcList: ImgSrcObj[],
+  endTimeHour: number,
+  endTimeMin: number,
+  bannerList: ImgSrcObj[],
 }
 
 export enum Pattern {
@@ -42,7 +42,7 @@ export const patternsHashMap: PatternObj[] = [
 
 export type ImgSrcObj = {
   src: string,
-  transitionDestination: string,
+  url: string,
 }
 
 export const bannerSizeByPatternMapList: BannerSizeByPatternMap[] = [

@@ -154,7 +154,6 @@ export class BannerSetting4Component4 implements OnInit {
         this.isImgUploaded2 = true;
         this.uploadImgWidth2 = img2.width;
         this.uploadImgHeight2 = img2.height;
-        console.log(img2.width, this.uploadImgWidth2);
         this.checkUploadImgContent(imgNo);
       }
     } else if (imgNo === 3) {
@@ -194,13 +193,13 @@ export class BannerSetting4Component4 implements OnInit {
         this.imgErrorMessageList1.length = 0;
         break;
       case 2:
-        this.imgErrorMessageList1.length = 0;
+        this.imgErrorMessageList2.length = 0;
         break;
       case 3:
-        this.imgErrorMessageList1.length = 0;
+        this.imgErrorMessageList3.length = 0;
         break;
       case 4:
-        this.imgErrorMessageList1.length = 0;
+        this.imgErrorMessageList4.length = 0;
         break;
       default:
         break;
@@ -332,26 +331,38 @@ export class BannerSetting4Component4 implements OnInit {
     const imgTransitionDestination1 = this.fg4.get('imgTransitionDestination1')?.value;
     const imgSrc2 = this.fg4.get('imgSrc2')?.value;
     const imgTransitionDestination2 = this.fg4.get('imgTransitionDestination2')?.value;
+    const imgSrc3 = this.fg4.get('imgSrc3')?.value;
+    const imgTransitionDestination3 = this.fg4.get('imgTransitionDestination3')?.value;
+    const imgSrc4 = this.fg4.get('imgSrc4')?.value;
+    const imgTransitionDestination4 = this.fg4.get('imgTransitionDestination4')?.value;
     const imgSrcObjList: ImgSrcObj[] = [
       {
         src: imgSrc1,
-        transitionDestination: imgTransitionDestination1
+        url: imgTransitionDestination1
       },
       {
         src: imgSrc2,
-        transitionDestination: imgTransitionDestination2
+        url: imgTransitionDestination2
+      },
+      {
+        src: imgSrc3,
+        url: imgTransitionDestination3
+      },
+      {
+        src: imgSrc4,
+        url: imgTransitionDestination4
       }
     ];
 
     const banner: Banner = {
       pattern: Pattern.pt4,
       beginDate: beginDate,
-      beginHour: beginHour,
-      beginMin: beginMin,
+      beginTimeHour: beginHour || 0,
+      beginTimeMin: beginMin || 0,
       endDate: endDate,
-      endHour: endHour,
-      endMin: endMin,
-      imgSrcList: imgSrcObjList
+      endTimeHour: endHour || 23,
+      endTimeMin: endMin || 59,
+      bannerList: imgSrcObjList
     }
     localStorage.setItem('bannerPt4', JSON.stringify(banner));
   }
