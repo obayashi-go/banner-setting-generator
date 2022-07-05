@@ -1,4 +1,5 @@
-<app-header></app-header>
+<app-header (isSideNaviOpen)="changeSideNaviOpenState($event)"></app-header>
+<app-side-navi [sideNaviState]="isSideNaviOpenState"></app-side-navi>
 <div class="background"></div>
 <div class="main-container">
   <router-outlet></router-outlet>

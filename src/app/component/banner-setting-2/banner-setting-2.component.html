@@ -77,7 +77,6 @@
           <input class="img-drop-area-input"
                  formControlName="dropImage1"
                  [type]="isNotUse ? 'none' : 'file'"
-                 [disabled]="isNotUse"
                  [readonly]="isNotUse"
                  [ngClass]="{'isDisabled': isNotUse}"
                  (change)="onFileSelect($event, 1)">
@@ -140,7 +139,6 @@
           <input class="img-drop-area-input"
                  formControlName="dropImage2"
                  [type]="isNotUse ? 'none' : 'file'"
-                 [disabled]="isNotUse"
                  [readonly]="isNotUse"
                  [ngClass]="{'isDisabled': isNotUse}"
                  (change)="onFileSelect($event, 2)">

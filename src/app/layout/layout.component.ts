@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
 
+  public isSideNaviOpenState = false;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  public changeSideNaviOpenState(event: any) {
+    this.isSideNaviOpenState = event;
   }
 
 }

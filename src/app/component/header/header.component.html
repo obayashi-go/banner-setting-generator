@@ -1,30 +1,6 @@
 <mat-toolbar color="primary">
-  <button mat-icon-button class="header-menu" (click)="sidenav.toggle()">
+  <button mat-icon-button class="header-menu" (click)="sideNaviControl(isOpen)">
     <mat-icon>menu</mat-icon>
   </button>
   <span>Banner Setting Generator</span>
 </mat-toolbar>
-
-<div class="mobile-sidenav">
-  <mat-sidenav-container fxFlexFill>
-    <mat-sidenav mode="side" opened #sidenav>
-      <mat-nav-list>
-        <mat-list-item (click)="changePage('setting-generate')">
-          <span>パターン別バナー設定画面</span>
-        </mat-list-item>
-        <mat-list-item (click)="changePage('create-json')">
-          <span>バナー設定ファイル生成</span>
-        </mat-list-item>
-        <mat-list-item>
-          <span>メニュー３</span>
-        </mat-list-item>
-        <mat-list-item>
-          <span>メニュー４</span>
-        </mat-list-item>
-      </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-</div>

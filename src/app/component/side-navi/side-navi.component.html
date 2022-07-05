@@ -1,0 +1,17 @@
+<mat-sidenav-container fxFlexFill>
+  <mat-sidenav mode="side" [opened]="sideNaviState" [disableClose]="sideNaviState">
+    <mat-nav-list>
+      <mat-list-item [routerLinkActive]="'active'" [routerLink]="'/setting-generate'">
+        <mat-icon>settings</mat-icon>
+        <span>パターン別バナー設定画面</span>
+      </mat-list-item>
+      <mat-list-item [routerLinkActive]="'active'" [routerLink]="'/create-json'">
+        <mat-icon>polyline</mat-icon>
+        <span>バナー設定ファイル生成</span>
+      </mat-list-item>
+    </mat-nav-list>
+    <div class="navi-close-button-area">
+      <button mat-stroked-button color="primary" (click)="naviClose()">Close</button>
+    </div>
+  </mat-sidenav>
+</mat-sidenav-container>

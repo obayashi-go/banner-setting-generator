@@ -9,6 +9,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { HeaderComponent } from '../component/header/header.component';
+import { SideNaviComponent } from '../component/side-navi/side-navi.component';
 import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
 
@@ -25,6 +26,6 @@ import { LayoutComponent } from './layout.component';
     MatListModule,
     MatProgressBarModule,
   ],
-  declarations: [ LayoutComponent, HeaderComponent ]
+  declarations: [ LayoutComponent, HeaderComponent, SideNaviComponent ]
 })
 export class LayoutModule {}

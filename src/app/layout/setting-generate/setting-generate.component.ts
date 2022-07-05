@@ -16,4 +16,6 @@ export class SettingGenerateComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+
 }
