@@ -243,24 +243,24 @@ export class BannerSetting5Component5 implements OnInit {
   private checkImgSize(targetBannerPattern: BannerSizeByPatternMap, imgNo: number): void {
     if (imgNo === 1) {
       if (this.uploadImgWidth1 < targetBannerPattern.minWidth) {
-        this.imgErrorMessageList1.push(`パターン4で使用する画像の幅は、最低${targetBannerPattern.minWidth}pxの画像を推奨します。`)
+        this.imgErrorMessageList1.push(`パターン5で使用する画像の幅は、最低${targetBannerPattern.minWidth}pxの画像を推奨します。`)
       }
       if (this.uploadImgHeight1 < targetBannerPattern.minHeight) {
-        this.imgErrorMessageList1.push(`パターン4で使用する画像の高さは、最低${targetBannerPattern.minHeight}pxの画像を推奨します。`)
+        this.imgErrorMessageList1.push(`パターン5で使用する画像の高さは、最低${targetBannerPattern.minHeight}pxの画像を推奨します。`)
       }
     } else if (imgNo === 2) {
       if (this.uploadImgWidth2 < targetBannerPattern.minWidth) {
-        this.imgErrorMessageList2.push(`パターン4で使用する画像の幅は、最低${targetBannerPattern.minWidth}pxの画像を推奨します。`)
+        this.imgErrorMessageList2.push(`パターン5で使用する画像の幅は、最低${targetBannerPattern.minWidth}pxの画像を推奨します。`)
       }
       if (this.uploadImgHeight2 < targetBannerPattern.minHeight) {
-        this.imgErrorMessageList2.push(`パターン4で使用する画像の高さは、最低${targetBannerPattern.minHeight}pxの画像を推奨します。`)
+        this.imgErrorMessageList2.push(`パターン5で使用する画像の高さは、最低${targetBannerPattern.minHeight}pxの画像を推奨します。`)
       }
     } else if (imgNo === 3) {
       if (this.uploadImgWidth3 < targetBannerPattern.minWidth) {
-        this.imgErrorMessageList3.push(`パターン4で使用する画像の幅は、最低${targetBannerPattern.minWidth}pxの画像を推奨します。`)
+        this.imgErrorMessageList3.push(`パターン5で使用する画像の幅は、最低${targetBannerPattern.minWidth}pxの画像を推奨します。`)
       }
       if (this.uploadImgHeight3 < targetBannerPattern.minHeight) {
-        this.imgErrorMessageList3.push(`パターン4で使用する画像の高さは、最低${targetBannerPattern.minHeight}pxの画像を推奨します。`)
+        this.imgErrorMessageList3.push(`パターン5で使用する画像の高さは、最低${targetBannerPattern.minHeight}pxの画像を推奨します。`)
       }
     }
   }

@@ -12,8 +12,6 @@
     </ng-container>
   </mat-card>
   <mat-card *ngIf="submitted" [ngClass]="{'showSetting' : submitted}">
-    <div *ngFor="let bannerSetting of bannerSettingByStorages">
-      {{bannerSetting}}
-    </div>
+    <div class="setting-inner">{{dispSettingStr}}</div>
   </mat-card>
 </div>

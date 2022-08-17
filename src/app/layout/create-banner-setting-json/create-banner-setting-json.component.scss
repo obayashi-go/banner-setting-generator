@@ -10,6 +10,9 @@
   .showSetting {
     margin-top: 20px;
     animation: FadeIn .5s;
+    .setting-inner {
+      white-space: pre-wrap;
+    }
   }
   @keyframes FadeIn {
     0% {
@@ -22,11 +25,11 @@
     }
     60% {
       opacity: .7;
-      height: 150px;
+      height: 100px;
     }
     100% {
       opacity: .8;
-      height: 300px;
+      height: auto;
     }
   }
 }
