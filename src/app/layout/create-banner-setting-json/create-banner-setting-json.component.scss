@@ -10,8 +10,12 @@
   .showSetting {
     margin-top: 20px;
     animation: FadeIn .5s;
+    background-color: #000;
     .setting-inner {
       white-space: pre-wrap;
+      color: #167c00;
+      height: 500px;
+      overflow: scroll;
     }
   }
   @keyframes FadeIn {
@@ -19,17 +23,34 @@
       opacity: 0;
       height: 0;
     }
-    30% {
-      opacity: .4;
+    10% {
+      opacity: .1;
       height: 50px;
     }
-    60% {
+    30% {
+      opacity: .3;
+      height: 200px;
+    }
+    50% {
+      opacity: .5;
+      height: 300px;
+    }
+    70% {
       opacity: .7;
-      height: 100px;
+      height: 400px;
     }
     100% {
-      opacity: .8;
-      height: auto;
+      opacity: 1;
+      height: 500px;
     }
   }
+}
+mat-icon {
+  color: #fff;
+  position: absolute;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  font-size: 30px;
+  cursor: pointer;
 }

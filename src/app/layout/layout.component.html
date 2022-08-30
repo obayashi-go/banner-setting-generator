@@ -1,5 +1,5 @@
 <app-header (isSideNaviOpen)="changeSideNaviOpenState($event)"></app-header>
-<app-side-navi [sideNaviState]="isSideNaviOpenState"></app-side-navi>
+<app-side-navi *ngIf="isSideNaviOpenState" [sideNaviState]="isSideNaviOpenState" (click)="isSideNaviOpenState = false"></app-side-navi>
 <div class="background"></div>
 <div class="main-container">
   <router-outlet></router-outlet>

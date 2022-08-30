@@ -10,6 +10,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from "@angular/material/icon";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 
 @NgModule({
@@ -23,6 +25,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatInputModule,
     MatCheckboxModule,
     MatFormFieldModule,
+    MatIconModule,
+    MatSnackBarModule,
   ],
   declarations: [
     CreateBannerSettingJsonComponent,

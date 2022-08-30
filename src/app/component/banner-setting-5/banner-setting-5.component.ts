@@ -12,6 +12,7 @@ import { HourList, getMinList } from "../../constants/constants";
 import {DateFormat} from "../../util/date-format";
 
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {GetLocalStorageData} from "../../util/getLocalStorageData";
 
 @Component({
   selector: 'app-banner-setting-5',
@@ -45,31 +46,32 @@ export class BannerSetting5Component5 implements OnInit {
   public isImgUploaded3: boolean = false;
   public hourList: number[] = HourList;
   public minValueList: number[] = getMinList();
+  public hasSettingData: boolean = false;
 
   constructor(private formBuilder: FormBuilder) {
+    const banner: Banner = GetLocalStorageData.getLocalStorageDataByPt(Pattern.pt5);
+    this.hasSettingData = !!banner.beginDate;
     this.fg5 = this.formBuilder.group({
       useThisPattern: [true, Validators.compose([Validators.required])],
-      beginDate: [''],
-      endDate: [''],
-      beginHour: [null],
-      beginMin: [null],
-      endHour: [null],
-      endMin: [null],
-      imgSrc1: [''],
-      imgTransitionDestination1: [''],
+      beginDate: [!banner.beginDate || banner.beginDate === '2030-12-31' ? '' : banner.beginDate],
+      endDate: [!banner.endDate || banner.endDate === '2030-12-31' ? '' : banner.endDate],
+      beginHour: [banner.beginTimeHour || null],
+      beginMin: [banner.beginTimeMin || null],
+      endHour: [banner.endTimeHour || null],
+      endMin: [banner.endTimeMin || null],
+      imgSrc1: [banner.bannerList[0].src || ''],
+      imgTransitionDestination1: [banner.bannerList[0].url || ''],
       dropImage1: [''],
-      imgSrc2: [''],
-      imgTransitionDestination2: [''],
+      imgSrc2: [banner.bannerList[1].src || ''],
+      imgTransitionDestination2: [banner.bannerList[1].url || ''],
       dropImage2: [''],
-      imgSrc3: [''],
-      imgTransitionDestination3: [''],
+      imgSrc3: [banner.bannerList[2].src || ''],
+      imgTransitionDestination3: [banner.bannerList[2].url || ''],
       dropImage3: [''],
     });
   }
 
-  ngOnInit(): void {
-    localStorage.removeItem('bannerPt5');
-  }
+  ngOnInit(): void {}
 
   public checkUsePattern(): void {
     this.isNotUse = !this.fg5.get('useThisPattern')?.value;
@@ -304,5 +306,6 @@ export class BannerSetting5Component5 implements OnInit {
       bannerList: imgSrcObjList
     }
     localStorage.setItem('bannerPt5', JSON.stringify(banner));
+    this.hasSettingData = true;
   }
 }

@@ -12,6 +12,7 @@ import { HourList, getMinList } from "../../constants/constants";
 import {DateFormat} from "../../util/date-format";
 
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {GetLocalStorageData} from "../../util/getLocalStorageData";
 
 @Component({
   selector: 'app-banner-setting-4',
@@ -52,34 +53,35 @@ export class BannerSetting4Component4 implements OnInit {
   public isImgUploaded4: boolean = false;
   public hourList: number[] = HourList;
   public minValueList: number[] = getMinList();
+  public hasSettingData: boolean = false;
 
   constructor(private formBuilder: FormBuilder) {
+    const banner: Banner = GetLocalStorageData.getLocalStorageDataByPt(Pattern.pt4);
+    this.hasSettingData = !!banner.beginDate;
     this.fg4 = this.formBuilder.group({
       useThisPattern: [true, Validators.compose([Validators.required])],
-      beginDate: [''],
-      endDate: [''],
-      beginHour: [null],
-      beginMin: [null],
-      endHour: [null],
-      endMin: [null],
-      imgSrc1: [''],
-      imgTransitionDestination1: [''],
+      beginDate: [!banner.beginDate || banner.beginDate === '2030-12-31' ? '' : banner.beginDate],
+      endDate: [!banner.endDate || banner.endDate === '2030-12-31' ? '' : banner.endDate],
+      beginHour: [banner.beginTimeHour || null],
+      beginMin: [banner.beginTimeMin || null],
+      endHour: [banner.endTimeHour || null],
+      endMin: [banner.endTimeMin || null],
+      imgSrc1: [banner.bannerList[0].src || ''],
+      imgTransitionDestination1: [banner.bannerList[0].url || ''],
       dropImage1: [''],
-      imgSrc2: [''],
-      imgTransitionDestination2: [''],
+      imgSrc2: [banner.bannerList[1].src || ''],
+      imgTransitionDestination2: [banner.bannerList[1].url || ''],
       dropImage2: [''],
-      imgSrc3: [''],
-      imgTransitionDestination3: [''],
+      imgSrc3: [banner.bannerList[2].src || ''],
+      imgTransitionDestination3: [banner.bannerList[2].url || ''],
       dropImage3: [''],
-      imgSrc4: [''],
-      imgTransitionDestination4: [''],
+      imgSrc4: [banner.bannerList[3].src || ''],
+      imgTransitionDestination4: [banner.bannerList[3].url || ''],
       dropImage4: ['']
     });
   }
 
-  ngOnInit(): void {
-    localStorage.removeItem('bannerPt4');
-  }
+  ngOnInit(): void {}
 
   public checkUsePattern(): void {
     this.isNotUse = !this.fg4.get('useThisPattern')?.value;
@@ -360,10 +362,11 @@ export class BannerSetting4Component4 implements OnInit {
       beginTimeHour: beginHour || 0,
       beginTimeMin: beginMin || 0,
       endDate: endDate,
-      endTimeHour: endHour || 23,
-      endTimeMin: endMin || 59,
+      endTimeHour: endHour || 0,
+      endTimeMin: endMin || 0,
       bannerList: imgSrcObjList
     }
     localStorage.setItem('bannerPt4', JSON.stringify(banner));
+    this.hasSettingData = true;
   }
 }

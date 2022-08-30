@@ -12,6 +12,7 @@
     </ng-container>
   </mat-card>
   <mat-card *ngIf="submitted" [ngClass]="{'showSetting' : submitted}">
+    <mat-icon (click)="copySettingJson(dispSettingStr)">content_copy</mat-icon>
     <div class="setting-inner">{{dispSettingStr}}</div>
   </mat-card>
 </div>

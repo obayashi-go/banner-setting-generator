@@ -7,9 +7,10 @@ import {
   ImgSrcObj,
   Pattern
 } from "../../interface/types";
-import {AspectRatioUtil, calcGcd} from '../../util/calcAspectRatio';
+import { AspectRatioUtil, calcGcd } from '../../util/calcAspectRatio';
 import { HourList, getMinList } from "../../constants/constants";
-import {DateFormat} from "../../util/date-format";
+import { DateFormat } from "../../util/date-format";
+import { GetLocalStorageData } from '../../util/getLocalStorageData';
 
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
@@ -31,25 +32,26 @@ export class BannerSetting1Component1 implements OnInit {
   public isImgUploaded: boolean = false;
   public hourList: number[] = HourList;
   public minValueList: number[] = getMinList();
+  public hasSettingData: boolean = false;
 
   constructor(private formBuilder: FormBuilder) {
+    const banner: Banner = GetLocalStorageData.getLocalStorageDataByPt(Pattern.pt1);
+    this.hasSettingData = !!banner.beginDate;
     this.fg1 = this.formBuilder.group({
       useThisPattern: [true, Validators.compose([Validators.required])],
-      beginDate: [''],
-      endDate: [''],
-      beginHour: [null],
-      beginMin: [null],
-      endHour: [null],
-      endMin: [null],
-      imgSrcList: [''],
-      imgTransitionDestinationList: [''],
+      beginDate: [!banner.beginDate || banner.beginDate === '2030-12-31' ? '' : banner.beginDate],
+      endDate: [!banner.endDate || banner.endDate === '2030-12-31' ? '' : banner.endDate],
+      beginHour: [banner.beginTimeHour || null],
+      beginMin: [banner.beginTimeMin || null],
+      endHour: [banner.endTimeHour || null],
+      endMin: [banner.endTimeMin || null],
+      imgSrcList: [banner.bannerList?.length ? banner.bannerList[0].src : ''],
+      imgTransitionDestinationList: [banner.bannerList?.length ? banner.bannerList[0].url : ''],
       dropImage1: ['']
     });
   }
 
-  ngOnInit(): void {
-    localStorage.removeItem('bannerPt1');
-  }
+  ngOnInit(): void {}
 
   public checkUsePattern(): void {
     this.isNotUse = !this.fg1.get('useThisPattern')?.value;
@@ -147,10 +149,11 @@ export class BannerSetting1Component1 implements OnInit {
       beginTimeHour: beginHour || 0,
       beginTimeMin: beginMin || 0,
       endDate: endDate,
-      endTimeHour: endHour || 23,
-      endTimeMin: endMin || 59,
+      endTimeHour: endHour || 0,
+      endTimeMin: endMin || 0,
       bannerList: imgSrcList
     }
     localStorage.setItem('bannerPt1', JSON.stringify(banner));
+    this.hasSettingData = true;
   }
 }

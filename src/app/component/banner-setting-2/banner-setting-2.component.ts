@@ -12,6 +12,7 @@ import { HourList, getMinList } from "../../constants/constants";
 import {DateFormat} from "../../util/date-format";
 
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { GetLocalStorageData } from "../../util/getLocalStorageData";
 
 @Component({
   selector: 'app-banner-setting-2',
@@ -38,28 +39,29 @@ export class BannerSetting2Component2 implements OnInit {
   public isImgUploaded2: boolean = false;
   public hourList: number[] = HourList;
   public minValueList: number[] = getMinList();
+  public hasSettingData: boolean = false;
 
   constructor(private formBuilder: FormBuilder) {
+    const banner: Banner = GetLocalStorageData.getLocalStorageDataByPt(Pattern.pt2);
+    this.hasSettingData = !!banner.beginDate;
     this.fg2 = this.formBuilder.group({
       useThisPattern: [true, Validators.compose([Validators.required])],
-      beginDate: [''],
-      endDate: [''],
-      beginHour: [null],
-      beginMin: [null],
-      endHour: [null],
-      endMin: [null],
-      imgSrc1: [''],
-      imgTransitionDestination1: [''],
+      beginDate: [!banner.beginDate || banner.beginDate === '2030-12-31' ? '' : banner.beginDate],
+      endDate: [!banner.endDate || banner.endDate === '2030-12-31' ? '' : banner.endDate],
+      beginHour: [banner.beginTimeHour || null],
+      beginMin: [banner.beginTimeMin || null],
+      endHour: [banner.endTimeHour || null],
+      endMin: [banner.endTimeMin || null],
+      imgSrc1: [banner.bannerList[0].src || ''],
+      imgTransitionDestination1: [banner.bannerList[0].url || ''],
       dropImage1: [''],
-      imgSrc2: [''],
-      imgTransitionDestination2: [''],
+      imgSrc2: [banner.bannerList[1].src || ''],
+      imgTransitionDestination2: [banner.bannerList[1].url || ''],
       dropImage2: ['']
     });
   }
 
-  ngOnInit(): void {
-    localStorage.removeItem('bannerPt2');
-  }
+  ngOnInit(): void {}
 
   public checkUsePattern(): void {
     this.isNotUse = !this.fg2.get('useThisPattern')?.value;
@@ -127,7 +129,7 @@ export class BannerSetting2Component2 implements OnInit {
     this.imgErrorMessageList1.length = 0;
     this.imgErrorMessageList2.length = 0;
     const targetBannerPattern: BannerSizeByPatternMap | undefined
-      = bannerSizeByPatternMapList.find(bannerSizeByPattern => bannerSizeByPattern.pt === Pattern.pt1);
+      = bannerSizeByPatternMapList.find(bannerSizeByPattern => bannerSizeByPattern.pt === Pattern.pt2);
     if (!targetBannerPattern) {
       switch (imgNo) {
         case 1:
@@ -154,7 +156,7 @@ export class BannerSetting2Component2 implements OnInit {
         x, y,
         passX: false, passY: false
       };
-      AspectRatioUtil.checkAspectRatio(aspectRatio, Pattern.pt1);
+      AspectRatioUtil.checkAspectRatio(aspectRatio, Pattern.pt2);
       if (!aspectRatio.passX || !aspectRatio.passY) {
         this.imgErrorMessageList1.push(`アスペクト比が不適切です。
       ${targetBannerPattern?.aspectRatioX}：${targetBannerPattern?.aspectRatioY}で指定してください。`)
@@ -168,7 +170,7 @@ export class BannerSetting2Component2 implements OnInit {
         x, y,
         passX: false, passY: false
       };
-      AspectRatioUtil.checkAspectRatio(aspectRatio, Pattern.pt1);
+      AspectRatioUtil.checkAspectRatio(aspectRatio, Pattern.pt2);
       if (!aspectRatio.passX || !aspectRatio.passY) {
         this.imgErrorMessageList2.push(`アスペクト比が不適切です。
       ${targetBannerPattern?.aspectRatioX}：${targetBannerPattern?.aspectRatioY}で指定してください。`)
@@ -222,10 +224,11 @@ export class BannerSetting2Component2 implements OnInit {
       beginTimeHour: beginHour || 0,
       beginTimeMin: beginMin || 0,
       endDate: endDate,
-      endTimeHour: endHour || 23,
-      endTimeMin: endMin || 59,
+      endTimeHour: endHour || 0,
+      endTimeMin: endMin || 0,
       bannerList: imgSrcObjList
     }
     localStorage.setItem('bannerPt2', JSON.stringify(banner));
+    this.hasSettingData = true;
   }
 }

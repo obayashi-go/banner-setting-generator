@@ -109,7 +109,8 @@
       </div>
 
       <div class="submit-area">
-        <button mat-raised-button color="primary" [disabled]="fg3.invalid" (click)="saveThisBannerSetting()">設定する</button>
+        <button *ngIf="!hasSettingData" mat-raised-button color="primary" [disabled]="fg3.invalid" (click)="saveThisBannerSetting()">設定する</button>
+        <button *ngIf="hasSettingData" mat-raised-button color="accent" [disabled]="fg3.invalid" (click)="saveThisBannerSetting()">設定を更新する</button>
       </div>
     </form>
   </mat-card>

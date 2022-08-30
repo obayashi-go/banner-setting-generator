@@ -12,6 +12,7 @@ import { HourList, getMinList } from "../../constants/constants";
 import {DateFormat} from "../../util/date-format";
 
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {GetLocalStorageData} from "../../util/getLocalStorageData";
 
 @Component({
   selector: 'app-banner-setting-3',
@@ -31,25 +32,25 @@ export class BannerSetting3Component3 implements OnInit {
   public isImgUploaded: boolean = false;
   public hourList: number[] = HourList;
   public minValueList: number[] = getMinList();
+  public hasSettingData: boolean = false;
 
   constructor(private formBuilder: FormBuilder) {
+    const banner: Banner = GetLocalStorageData.getLocalStorageDataByPt(Pattern.pt3);
     this.fg3 = this.formBuilder.group({
       useThisPattern: [true, Validators.compose([Validators.required])],
-      beginDate: [''],
-      endDate: [''],
-      beginHour: [null],
-      beginMin: [null],
-      endHour: [null],
-      endMin: [null],
-      imgSrcList: [''],
-      imgTransitionDestinationList: [''],
+      beginDate: [!banner.beginDate || banner.beginDate === '2030-12-31' ? '' : banner.beginDate],
+      endDate: [!banner.endDate || banner.endDate === '2030-12-31' ? '' : banner.endDate],
+      beginHour: [banner.beginTimeHour || null],
+      beginMin: [banner.beginTimeMin || null],
+      endHour: [banner.endTimeHour || null],
+      endMin: [banner.endTimeMin || null],
+      imgSrcList: [banner.bannerList[0].src || ''],
+      imgTransitionDestinationList: [banner.bannerList[0].url || ''],
       dropImage1: ['']
     });
   }
 
-  ngOnInit(): void {
-    localStorage.removeItem('bannerPt3');
-  }
+  ngOnInit(): void {}
 
   public checkUsePattern(): void {
     this.isNotUse = !this.fg3.get('useThisPattern')?.value;
@@ -152,5 +153,6 @@ export class BannerSetting3Component3 implements OnInit {
       bannerList: imgSrcList
     }
     localStorage.setItem('bannerPt3', JSON.stringify(banner));
+    this.hasSettingData = true;
   }
 }

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import {
-  Banner,
-  ImgSrcObj,
-  Pattern
+  Banner
 } from "../../interface/types";
 
 @Component({
@@ -18,7 +17,7 @@ export class CreateBannerSettingJsonComponent implements OnInit {
   public bannerSettingByStorages: Banner[] = [];
   public dispSettingStr = '';
 
-  constructor() { }
+  constructor(private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
@@ -28,49 +27,60 @@ export class CreateBannerSettingJsonComponent implements OnInit {
     this.submitted = true;
     this.dispSettingStr = '';
     this.getLocalStorageItems();
-    console.log("[[[[]]]]>>>", this.bannerSettingByStorages)
+  }
+
+  public copySettingJson(val: string): void {
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = val;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+    this.openSnackBar('バナー設定をクリップボードにコピーしました。', 'OK')
+  }
+
+  private openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3000
+    });
   }
 
   private getLocalStorageItems(): void {
     for (let i = 0; i < 5; i++) {
       const storageItem = localStorage.getItem(`bannerPt${i + 1}`);
-      console.log(`bannerPt${i + 1}: storageItem`);
       if (storageItem) {
-        console.log(storageItem)
         this.bannerSettingByStorages.push(JSON.parse(storageItem));
       }
     }
     const prefix = `settings: [\n\t{\n\t\tenv: 'production' , banner: [`;
-    const suffix = `\n\t\t]\t\n}\n],`;
+    const suffix = `\n\t\t]\n\t}\n],`;
     this.bannerSettingByStorages.forEach((bannerSetting, idx) => {
-      // this.convertKeyStrToProperty(bannerSetting);
       this.dispSettingStr += `
-        \t${this.convertKeyStrToProperty(JSON.stringify(bannerSetting))}
-      `
+        \t\t${this.convertKeyStrToProperty(JSON.stringify(bannerSetting))}`
     });
-    this.dispSettingStr = `${prefix}\t\t${this.dispSettingStr}${suffix}`
+    this.dispSettingStr = `${prefix}${this.dispSettingStr}${suffix}`
   }
 
   private convertKeyStrToProperty(bannerSettingStr: string): string {
     return  bannerSettingStr
-      .replace('"pattern"', '\t\tpattern')
-      .replace('"beginDate"', '\t\t\tbeginDate')
-      .replace('"beginTimeHour"', '\t\t\tbeginTimeHour')
-      .replace('"beginTimeMin"', '\t\t\tbeginTimeMin')
-      .replace('"endDate"', '\t\t\tendDate')
-      .replace('"endTimeHour"', '\t\t\tendTimeHour')
-      .replace('"endTimeMin"', '\t\t\tendTimeMin')
-      .replace('"bannerList"', '\t\t\tbannerList')
-      .replace(/"src"/g, '\n\t\t\t\tsrc')
-      .replace(/"url"/g, '\t\t\t\turl')
-      .replace(/,/g, ',\n')
-      .replace(/}/g, '\n}\n')
-      .replace(/{\t\tpattern/g, '{\n\t\t\tpattern')
-      .replace('[', '[\n')
-      .replace(/      /g, '')
-      .replace(/\n]\n}\n/g, ']},')
-      .replace(/}]},/g, '}\n]\n},')
-      .replace(/}\n,/g, '},')
-      .replace(/{src/g, '{\nsrc');
+      .replace('"pattern"', '\n\t\t\t\tpattern')
+      .replace('"beginDate"', '\n\t\t\t\tbeginDate')
+      .replace('"beginTimeHour"', '\n\t\t\t\tbeginTimeHour')
+      .replace('"beginTimeMin"', '\n\t\t\t\tbeginTimeMin')
+      .replace('"endDate"', '\n\t\t\t\tendDate')
+      .replace('"endTimeHour"', '\n\t\t\t\tendTimeHour')
+      .replace('"endTimeMin"', '\n\t\t\t\tendTimeMin')
+      .replace('"bannerList"', '\n\t\t\t\tbannerList')
+      .replace(/"src"/g, '\n\t\t\t\t\t\tsrc')
+      .replace(/"url"/g, '\n\t\t\t\t\t\turl')
+      .replace('bannerList:[{', 'bannerList: [\n\t\t\t\t\t{')
+      .replace(/"}/g, '"\n\t\t\t\t\t}')
+      .replace(/},{/g, '},\n\t\t\t\t\t{')
+      .replace(/}]}/g, '}\n\t\t\t\t]\n\t\t\t},');
   }
 }
